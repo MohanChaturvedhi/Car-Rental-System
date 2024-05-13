@@ -1,0 +1,48 @@
+CREATE TABLE users (
+    userid bigserial primary key,
+    email varchar(64) not null unique,
+    name varchar(64) not null,
+    password varchar(64) not null,
+    isverified boolean not null,
+    dateJoined varchar(64) not null,
+    balance bigserial not null
+);
+
+CREATE TABLE cars (
+    carId bigserial primary key,
+    carName varchar(64) not null unique,
+    baseAmount integer not null,
+    rupeePerKm integer not null,
+    rupeePerHour integer not null,
+    imageLink text not null,
+    price integer not null
+);
+
+CREATE TABLE inventory (
+    carId bigserial not null,
+    numberPlate varchar(12) primary key,
+    carType carTypeEnum,
+    carStatus carStatusEnum,
+    mileMeterReading integer not null,
+    maintainenceExpense integer not null
+);
+
+CREATE TABLE rents (
+    rentId bigserial primary key,
+    userId bigserial not null,
+    numberPlate varchar(12) not null unique,
+    expectedReturn varchar(64) not null,
+    mileMeterStart integer not null,
+    rentedOn varchar(32) not null,
+    rentStatus rentStatusEnum
+);
+
+CREATE TABLE return (
+    rentId bigserial primary key,
+    numberPlate varchar(12) not null,
+    mileMeterEnd integer not null,
+    returnedOn varchar(32) not null,
+    gasConsumed integer not null,
+    amountPaid integer not null,
+    amountRefunded integer not null
+);
